@@ -104,7 +104,7 @@ defmodule NostrBasics.Event.Id do
       { :ok, "note", <<0x05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c::256>> }
   """
   @spec to_binary(<<_::256>> | String.t() | list()) ::
-          {:ok, <<_::256>>} | {:ok, list(<<_::256>>)} | {:error, String.t()}
+          {:ok, String.t(), <<_::256>>} | {:ok, String.t(), list(<<_::256>>)} | {:error, String.t()}
   def to_binary(<<_::256>> = event_id), do: {:ok, event_id}
   def to_binary(event_id) when is_binary(event_id), do: from_bech32(event_id)
 

@@ -21,6 +21,7 @@ defmodule NostrBasics.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:jason, "~> 1.4"},
       {:k256, "~> 0.0.7"},
       {:binary, "~> 0.0.5"},
