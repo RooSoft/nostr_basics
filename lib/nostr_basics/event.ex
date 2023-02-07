@@ -93,7 +93,7 @@ defmodule NostrBasics.Event do
         }
       }
   """
-  @spec parse(String.t()) :: Event.t()
+  @spec parse(String.t()) :: {:ok, Event.t()} | {:error, String.t()}
   def parse(body) do
     Parser.parse(body)
   end
