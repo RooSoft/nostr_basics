@@ -5,29 +5,32 @@ defmodule NostrBasics.Event.Parser do
 
   alias NostrBasics.Event
 
-  def parse(%{
-        "content" => json_content,
-        "created_at" => unix_created_at,
-        "id" => id,
-        "kind" => kind,
-        "pubkey" => hex_pubkey,
-        "sig" => hex_sig,
-        "tags" => tags
-      }) do
-    pubkey = Binary.from_hex(hex_pubkey)
-    sig = Binary.from_hex(hex_sig)
+  @spec parse(String.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  def parse(json_event) when is_binary(json_event) do
+    case Jason.decode(json_event) do
+      {:ok, event} ->
+        {:ok, decode_event_hash(event)}
 
-    created_at = parse_created_at(unix_created_at)
-    content = parse_content(json_content)
+      {:error, %Jason.DecodeError{position: position, token: token}} ->
+        {:error, "error decoding JSON at position #{position}: #{token}"}
+    end
+  end
+
+  defp decode_event_hash(hash) do
+    pubkey = hash |> Map.get("pubkey") |> to_binary
+    sig = hash |> Map.get("sig") |> to_binary
+
+    created_at = hash |> Map.get("created_at") |> parse_created_at()
+    content = hash |> Map.get("content")
 
     %Event{
-      id: id,
+      id: Map.get(hash, "id"),
       content: content,
       created_at: created_at,
-      kind: kind,
+      kind: Map.get(hash, "kind"),
       pubkey: pubkey,
       sig: sig,
-      tags: tags
+      tags: Map.get(hash, "tags")
     }
   end
 
@@ -38,10 +41,6 @@ defmodule NostrBasics.Event.Parser do
     end
   end
 
-  defp parse_content(json_content) do
-    case Jason.decode(json_content) do
-      {:ok, content} -> content
-      {:error, _} -> nil
-    end
-  end
+  defp to_binary(nil), do: nil
+  defp to_binary(value), do: Binary.from_hex(value)
 end
