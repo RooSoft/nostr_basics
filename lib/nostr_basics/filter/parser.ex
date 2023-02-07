@@ -19,7 +19,7 @@ defmodule NostrBasics.Filter.Parser do
       }
     }
   """
-  @spec from_req(String.t(), String.t()) :: Filter.t()
+  @spec from_req(String.t(), String.t()) :: {:ok, Filter.t()} | {:error, String.t()}
   def from_req(req, subscription_id) do
     case Jason.decode(req) do
       {:ok, request} ->

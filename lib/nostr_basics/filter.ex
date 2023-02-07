@@ -34,7 +34,7 @@ defmodule NostrBasics.Filter do
       }
     }
   """
-  @spec from_query(String.t(), String.t()) :: Filter.t()
+  @spec from_query(String.t(), String.t()) :: {:ok, Filter.t()} | {:error, String.t()}
   def from_query(req, subscription_id) do
     Parser.from_req(req, subscription_id)
   end
