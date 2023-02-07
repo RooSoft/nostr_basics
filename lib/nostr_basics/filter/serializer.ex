@@ -1,4 +1,8 @@
 defmodule NostrBasics.Filter.Serializer do
+  @moduledoc """
+  Transaforms a %Filter{} into a NIP-01 JSON string
+  """
+
   alias NostrBasics.Filter
 
   @doc """
