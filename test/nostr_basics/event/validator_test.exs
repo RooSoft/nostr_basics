@@ -4,6 +4,8 @@ defmodule NostrBasics.Event.ValidatorTest do
   alias NostrBasics.Event.Validator
   alias NostrBasics.Event
 
+  doctest Validator
+
   setup_all do
     %{
       event: %Event{
