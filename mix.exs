@@ -13,7 +13,7 @@ defmodule NostrBasics.MixProject do
       deps: deps(),
 
       # Docs
-      name: "Nostr",
+      name: "NostrBasics",
       source_url: "https://github.com/roosoft/nostr_basics",
       homepage_url: "https://github.com/roosoft/nostr_basics",
       package: package(),
