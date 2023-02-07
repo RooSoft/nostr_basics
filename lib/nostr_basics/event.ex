@@ -148,6 +148,20 @@ defmodule NostrBasics.Event do
     |> Binary.to_hex()
   end
 
+  @doc """
+  A structure an event has to be converted to prior to being SHA256'd, mainly for ID creation
+
+  ## Examples
+      iex> %NostrBasics.Event{
+      ...>   pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
+      ...>   created_at: ~U[2023-02-07 18:24:32Z],
+      ...>   kind: 1,
+      ...>   tags: [],
+      ...>   content: "this is the content"
+      ...> }
+      ...> |> NostrBasics.Event.json_for_id
+      ~s([0,"5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2",1675794272,1,[],"this is the content"])
+  """
   @spec json_for_id(Event.t()) :: String.t()
   def json_for_id(%Event{
         pubkey: pubkey,
