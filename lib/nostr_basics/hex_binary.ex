@@ -23,7 +23,7 @@ defmodule NostrBasics.HexBinary do
   end
 end
 
-defimpl Inspect, for: Relay.HexBinary do
+defimpl Inspect, for: NostrBasics.HexBinary do
   alias NostrBasics.HexBinary
 
   @byte 8
