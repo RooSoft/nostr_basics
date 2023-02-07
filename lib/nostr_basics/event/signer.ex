@@ -12,7 +12,7 @@ defmodule NostrBasics.Event.Signer do
   ## Examples
       iex> private_key = <<0x4e22da43418dd934373cbb38a5ab13059191a2b3a51c5e0b67eb1334656943b8::256>>
       ...> %NostrBasics.Event{
-      ...>   id: "79d747b040a30fceb446c6ac34936cb93ac2d520a682b8096238f868c4ff5e5c",
+      ...>   id: "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34",
       ...>   pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
       ...>   kind: 1,
       ...>   created_at: ~U[2023-02-07 18:24:32.596503Z],
@@ -23,7 +23,7 @@ defmodule NostrBasics.Event.Signer do
       {
         :ok,
         %NostrBasics.Event{
-          id: "79d747b040a30fceb446c6ac34936cb93ac2d520a682b8096238f868c4ff5e5c",
+          id: "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34",
           pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
           created_at: ~U[2023-02-07 18:24:32.596503Z],
           kind: 1,
