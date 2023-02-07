@@ -1,4 +1,6 @@
 defmodule NostrBasics.Filter.Serializer do
+  alias NostrBasics.Filter
+
   @doc """
   Converts a structured Filter into a NIP-01 JSON REQ string
 
