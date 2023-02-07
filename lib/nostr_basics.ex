@@ -1,18 +1,5 @@
 defmodule NostrBasics do
   @moduledoc """
-  Documentation for `NostrBasics`.
+  Basic structures both useful for nostr relays and clients
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> NostrBasics.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end
