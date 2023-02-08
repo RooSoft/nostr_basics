@@ -99,6 +99,32 @@ defmodule NostrBasics.Event do
   end
 
   @doc """
+  Converts a NIP-01 JSON string decoded as a map by Jason into an %Event{}
+
+  ## Examples
+      iex> %{
+      ...>    "content" => "this is the content",
+      ...>    "created_at" => 1675794272,
+      ...>    "id" => "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34",
+      ...>    "kind" => 1,
+      ...>    "pubkey" => "5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2",
+      ...>    "tags" => []
+      ...>  }
+      ...> |> NostrBasics.Event.decode()
+      %NostrBasics.Event{
+        id: "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34",
+        pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
+        created_at: ~U[2023-02-07 18:24:32Z],
+        kind: 1,
+        tags: [],
+        content: "this is the content"
+      }
+  """
+  def decode(raw_event) when is_map(raw_event) do
+    Parser.decode(raw_event)
+  end
+
+  @doc """
   Adds an ID to an event that doesn't have one
 
   ## Examples
