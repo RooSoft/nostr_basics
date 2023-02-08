@@ -76,7 +76,10 @@ defmodule NostrBasics.ClientMessage.Decoder do
       {:unknown, "Unknown nostr message type"}
   """
   @spec decode(list()) ::
-          {:ok, Event.t() | list(Filter.t()) | CloseRequest.t()} | {:error, String.t()}
+          {:event, Event.t()}
+          | {:req, list(Filter.t())}
+          | {:close, CloseRequest.t()}
+          | {:unknown, String.t()}
   def decode(["EVENT", encoded_event]) do
     {:event, Event.decode(encoded_event)}
   end

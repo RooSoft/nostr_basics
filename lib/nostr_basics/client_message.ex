@@ -62,7 +62,10 @@ defmodule NostrBasics.ClientMessage do
       {:unknown, "Unknown nostr message type"}
   """
   @spec parse(String.t()) ::
-          {:ok, Event.t() | list(Filter.t()) | CloseRequest.t()} | {:error, String.t()}
+          {:event, Event.t()}
+          | {:req, list(Filter.t())}
+          | {:close, CloseRequest.t()}
+          | {:unknown, String.t()}
   def parse(message) do
     case Jason.decode(message) do
       {:ok, encoded_message} ->
