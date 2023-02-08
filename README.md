@@ -18,7 +18,7 @@ Takes care of:
   - Serialization
   - Signing
   - Validation
-  
+
 - Filters
   - Parsing
   - Serialization
@@ -30,7 +30,7 @@ The package can be installed by adding `nostr_basics` to your list of dependenci
 ```elixir
 def deps do
   [
-    {:nostr_basics, "~> 0.0.5"}
+    {:nostr_basics, "~> 0.0.6"}
   ]
 end
 ```

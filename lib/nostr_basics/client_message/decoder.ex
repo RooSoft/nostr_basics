@@ -23,7 +23,7 @@ defmodule NostrBasics.ClientMessage.Decoder do
       ...> ]
       ...> |> NostrBasics.ClientMessage.Decoder.decode()
       {
-        :ok,
+        :event,
         %NostrBasics.Event{
           id: "c899ed67ac6c736648f1809cf17d187ba2599a7fb2ab85359e19a78cd627a6b9",
           pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
@@ -46,7 +46,7 @@ defmodule NostrBasics.ClientMessage.Decoder do
       ...> ]
       ...> |> NostrBasics.ClientMessage.Decoder.decode()
       {
-        :ok,
+        :req,
         [
           %NostrBasics.Filter{
             subscription_id: "7c4924a0d6d3a88917744ea7616618f9",
@@ -65,7 +65,7 @@ defmodule NostrBasics.ClientMessage.Decoder do
       iex> ["CLOSE", "7c4924a0d6d3a88917744ea7616618f9"]
       ...> |> NostrBasics.ClientMessage.Decoder.decode()
       {
-        :ok,
+        :close,
         %NostrBasics.CloseRequest{
           subscription_id: "7c4924a0d6d3a88917744ea7616618f9"
         }
@@ -73,23 +73,23 @@ defmodule NostrBasics.ClientMessage.Decoder do
 
       iex> ~s(["WHAT", "something new"])
       ...> |> NostrBasics.ClientMessage.Decoder.decode()
-      {:error, "Unknown nostr message type"}
+      {:unknown, "Unknown nostr message type"}
   """
   @spec decode(list()) ::
           {:ok, Event.t() | list(Filter.t()) | CloseRequest.t()} | {:error, String.t()}
   def decode(["EVENT", encoded_event]) do
-    {:ok, Event.decode(encoded_event)}
+    {:event, Event.decode(encoded_event)}
   end
 
   def decode(["REQ" | [subscription_id | requests]]) do
-    {:ok, Enum.map(requests, &Filter.decode(&1, subscription_id))}
+    {:req, Enum.map(requests, &Filter.decode(&1, subscription_id))}
   end
 
   def decode(["CLOSE", subscription_id]) do
-    {:ok, %CloseRequest{subscription_id: subscription_id}}
+    {:close, %CloseRequest{subscription_id: subscription_id}}
   end
 
   def decode(_unknown_message) do
-    {:error, "Unknown nostr message type"}
+    {:unknown, "Unknown nostr message type"}
   end
 end
