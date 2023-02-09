@@ -30,6 +30,10 @@ defmodule NostrBasics.RelayMessage do
         }
       }
 
+      iex> ~s(["NOTICE","a notice from the relay"])
+      ...> |> NostrBasics.RelayMessage.parse()
+      {:notice, "a notice from the relay"}
+
       iex> ~s(["EOSE","b9dcd5af35446678eec7fa6748eb7357"])
       ...> |> NostrBasics.RelayMessage.parse()
       {:end_of_stored_events, "b9dcd5af35446678eec7fa6748eb7357"}
