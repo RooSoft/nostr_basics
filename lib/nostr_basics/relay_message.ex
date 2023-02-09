@@ -38,11 +38,16 @@ defmodule NostrBasics.RelayMessage do
       iex> ~s(["EOSE","b9dcd5af35446678eec7fa6748eb7357"])
       ...> |> NostrBasics.RelayMessage.parse()
       {:end_of_stored_events, "b9dcd5af35446678eec7fa6748eb7357"}
+
+      iex> ~s(["OK","3dafe573cc12c0292519cf54391bcd29135c7d313729b3e3835b0c222d31748b",true,""])
+      ...> |> NostrBasics.RelayMessage.parse()
+      {:ok, "3dafe573cc12c0292519cf54391bcd29135c7d313729b3e3835b0c222d31748b",true,""}
   """
   @spec parse(String.t()) ::
           {:event, String.t(), Event.t()}
           | {:notice, String.t()}
           | {:end_of_stored_events, String.t()}
+          | {:ok, String.t(), boolean(), String.t()}
           | {:unknown, String.t()}
   def parse(message) do
     case Jason.decode(message) do

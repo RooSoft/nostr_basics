@@ -54,6 +54,7 @@ defmodule NostrBasics.RelayMessage.Decoder do
           {:event, String.t(), Event.t()}
           | {:notice, String.t()}
           | {:end_of_stored_events, String.t()}
+          | {:ok, String.t(), boolean(), String.t()}
           | {:unknown, String.t()}
   def decode(["EVENT", subscription_id, encoded_event]) do
     event = Event.decode(encoded_event)
