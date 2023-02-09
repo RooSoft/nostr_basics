@@ -6,6 +6,7 @@ defmodule NostrBasics.RelayMessage do
 
   - https://github.com/nostr-protocol/nips/blob/master/01.md#from-relay-to-client-sending-events-and-notices
   - https://github.com/nostr-protocol/nips/blob/master/15.md
+  - https://github.com/nostr-protocol/nips/blob/master/20.md
   """
 
   alias NostrBasics.Event
