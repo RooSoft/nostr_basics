@@ -45,19 +45,21 @@ defmodule NostrBasics.RelayMessage.Decoder do
       ...> |> NostrBasics.RelayMessage.Decoder.decode()
       {:end_of_stored_events, "b9dcd5af35446678eec7fa6748eb7357"}
   """
-  @spec decode(list()) :: {:event, String.t(), Event.t()}
+  @spec decode(list()) ::
+          {:event, String.t(), Event.t()}
+          | {:notice, String.t()}
+          | {:end_of_stored_events, String.t()}
+          | {:unknown, String.t()}
   def decode(["EVENT", subscription_id, encoded_event]) do
     event = Event.decode(encoded_event)
 
     {:event, subscription_id, event}
   end
 
-  @spec decode(list()) :: {:notice, String.t()}
   def decode(["NOTICE", message]) do
     {:notice, message}
   end
 
-  @spec decode(list()) :: {:eose, String.t()}
   def decode(["EOSE", subscription_id]) do
     {:end_of_stored_events, subscription_id}
   end

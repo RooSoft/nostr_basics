@@ -8,6 +8,7 @@ defmodule NostrBasics.RelayMessage do
   - https://github.com/nostr-protocol/nips/blob/master/15.md
   """
 
+  alias NostrBasics.Event
   alias NostrBasics.RelayMessage.Decoder
 
   @doc """
@@ -38,7 +39,11 @@ defmodule NostrBasics.RelayMessage do
       ...> |> NostrBasics.RelayMessage.parse()
       {:end_of_stored_events, "b9dcd5af35446678eec7fa6748eb7357"}
   """
-  @spec parse(String.t()) :: {:eose, String.t()}
+  @spec parse(String.t()) ::
+          {:event, String.t(), Event.t()}
+          | {:notice, String.t()}
+          | {:end_of_stored_events, String.t()}
+          | {:unknown, String.t()}
   def parse(message) do
     case Jason.decode(message) do
       {:ok, encoded_message} ->
