@@ -44,6 +44,11 @@ defmodule NostrBasics.RelayMessage.Decoder do
       iex> ["EOSE", "b9dcd5af35446678eec7fa6748eb7357"]
       ...> |> NostrBasics.RelayMessage.Decoder.decode()
       {:end_of_stored_events, "b9dcd5af35446678eec7fa6748eb7357"}
+
+      iex> ["OK", "2e4b14f5d54a4190c0101b87382db1ce5ef9ec5db39dc2265bac5bd9d91cded2", true, "successfully stored"]
+      ...> |> NostrBasics.RelayMessage.Decoder.decode()
+      {:ok, "2e4b14f5d54a4190c0101b87382db1ce5ef9ec5db39dc2265bac5bd9d91cded2", true, "successfully stored"}
+
   """
   @spec decode(list()) ::
           {:event, String.t(), Event.t()}
@@ -62,6 +67,10 @@ defmodule NostrBasics.RelayMessage.Decoder do
 
   def decode(["EOSE", subscription_id]) do
     {:end_of_stored_events, subscription_id}
+  end
+
+  def decode(["OK", event_id, success?, message]) do
+    {:ok, event_id, success?, message}
   end
 
   def decode(_unknown_message) do
