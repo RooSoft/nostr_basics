@@ -43,6 +43,10 @@ defmodule NostrBasics.RelayMessage do
       iex> ~s(["OK","3dafe573cc12c0292519cf54391bcd29135c7d313729b3e3835b0c222d31748b",true,""])
       ...> |> NostrBasics.RelayMessage.parse()
       {:ok, "3dafe573cc12c0292519cf54391bcd29135c7d313729b3e3835b0c222d31748b",true,""}
+
+      iex> ~s(["EVENT")
+      ...> |> NostrBasics.RelayMessage.parse()
+      {:json_error, "error decoding JSON at position 8: "}
   """
   @spec parse(String.t()) ::
           {:event, String.t(), Event.t()}
@@ -50,13 +54,14 @@ defmodule NostrBasics.RelayMessage do
           | {:end_of_stored_events, String.t()}
           | {:ok, String.t(), boolean(), String.t()}
           | {:unknown, String.t()}
+          | {:json_error, String.t()}
   def parse(message) do
     case Jason.decode(message) do
       {:ok, encoded_message} ->
         Decoder.decode(encoded_message)
 
       {:error, %Jason.DecodeError{position: position, token: token}} ->
-        {:error, "error decoding JSON at position #{position}: #{token}"}
+        {:json_error, "error decoding JSON at position #{position}: #{token}"}
     end
   end
 end
