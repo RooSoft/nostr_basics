@@ -101,15 +101,27 @@ defmodule NostrBasics.Event.Id do
   ## Examples
       iex> "note1qkjgra6cm5ms6m88kqdapfjnxm8q50lcurevtpvm4f6pfs8j5sxq90f098"
       ...> |> NostrBasics.Event.Id.to_binary()
-      { :ok, "note", <<0x05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c::256>> }
+      { :ok, <<0x05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c::256>> }
+
+      iex> [<<0x73b0011409b488352545775d6b24b4de47ff8ff29998d7d61cdee7f9a9a208ee::256>>]
+      ...> |> NostrBasics.Event.Id.to_binary()
+      { :ok, [<<0x73b0011409b488352545775d6b24b4de47ff8ff29998d7d61cdee7f9a9a208ee::256>>]}
   """
   @spec to_binary(<<_::256>> | String.t() | list()) ::
-          {:ok, String.t(), <<_::256>>} | {:ok, String.t(), list(<<_::256>>)} | {:error, String.t()}
+          {:ok, <<_::256>>}
+          | {:ok, list(<<_::256>>)}
+          | {:error, String.t()}
   def to_binary(<<_::256>> = event_id), do: {:ok, event_id}
-  def to_binary(event_id) when is_binary(event_id), do: from_bech32(event_id)
 
-  def to_binary(event_id) when is_list(event_id) do
-    event_id
+  def to_binary(event_id) when is_binary(event_id) do
+    case from_bech32(event_id) do
+      {:ok, _, binary} -> {:ok, binary}
+      {:error, message} -> {:error, message}
+    end
+  end
+
+  def to_binary(event_ids) when is_list(event_ids) do
+    event_ids
     |> Enum.reverse()
     |> Enum.reduce({:ok, []}, &reduce_to_binaries/2)
   end
@@ -120,11 +132,13 @@ defmodule NostrBasics.Event.Id do
     |> from_bech32()
   end
 
+  @spec reduce_to_binaries(String.t(), {:ok, list()} | {:error, String.t()}) ::
+          {:ok, list()} | {:error, String.t()}
   defp reduce_to_binaries(event_id, acc) do
     case acc do
       {:ok, binary_event_ids} ->
         case to_binary(event_id) do
-          {:ok, _type, binary_event_id} ->
+          {:ok, binary_event_id} ->
             {:ok, [binary_event_id | binary_event_ids]}
 
           {:error, message} ->
