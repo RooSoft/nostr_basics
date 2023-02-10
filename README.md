@@ -4,6 +4,10 @@ Basic structures both useful for nostr relays and clients
 
 Takes care of:
 
+- Keys
+  - Private keys
+  - Public keys
+
 - Client nostr messages
   - Event
   - Req
@@ -35,7 +39,7 @@ The package can be installed by adding `nostr_basics` to your list of dependenci
 ```elixir
 def deps do
   [
-    {:nostr_basics, "~> 0.0.10"}
+    {:nostr_basics, "~> 0.0.11"}
   ]
 end
 ```
