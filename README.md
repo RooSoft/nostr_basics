@@ -39,7 +39,7 @@ The package can be installed by adding `nostr_basics` to your list of dependenci
 ```elixir
 def deps do
   [
-    {:nostr_basics, "~> 0.0.14"}
+    {:nostr_basics, "~> 0.0.15"}
   ]
 end
 ```
