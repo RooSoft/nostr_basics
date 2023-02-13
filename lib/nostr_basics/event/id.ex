@@ -99,6 +99,10 @@ defmodule NostrBasics.Event.Id do
   @doc """
   Does its best to convert any event id format to binary, issues an error if it can't
   ## Examples
+      iex> "05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c"
+      ...> |> NostrBasics.Event.Id.to_binary()
+      { :ok, <<0x05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c::256>> }
+
       iex> "note1qkjgra6cm5ms6m88kqdapfjnxm8q50lcurevtpvm4f6pfs8j5sxq90f098"
       ...> |> NostrBasics.Event.Id.to_binary()
       { :ok, <<0x05a481f758dd370d6ce7b01bd0a65336ce0a3ff8e0f2c5859baa7414c0f2a40c::256>> }
@@ -109,9 +113,11 @@ defmodule NostrBasics.Event.Id do
   """
   @spec to_binary(<<_::256>> | String.t() | list()) ::
           {:ok, <<_::256>>}
+          | {:ok, <<_::512>>}
           | {:ok, list(<<_::256>>)}
           | {:error, String.t()}
   def to_binary(<<_::256>> = event_id), do: {:ok, event_id}
+  def to_binary(<<_::512>> = event_id), do: {:ok, Binary.from_hex(event_id)}
 
   def to_binary(event_id) when is_binary(event_id) do
     case from_bech32(event_id) do
