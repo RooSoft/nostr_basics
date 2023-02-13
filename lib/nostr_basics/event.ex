@@ -51,18 +51,13 @@ defmodule NostrBasics.Event do
   requiring the bare minimum to do so
 
   ## Examples
-      iex> now = DateTime.utc_now()
-      ...> pubkey = <<0xEFC83F01C8FB309DF2C8866B8C7924CC8B6F0580AFDDE1D6E16E2B6107C2862C::256>>
-      ...> event = NostrBasics.Event.create(1, "this is the content", pubkey)
-      ...> %{event | created_at: now}
+      iex> pubkey = <<0xEFC83F01C8FB309DF2C8866B8C7924CC8B6F0580AFDDE1D6E16E2B6107C2862C::256>>
+      ...> NostrBasics.Event.create(1, "this is the content", pubkey)
       %NostrBasics.Event{
-        id: nil,
         pubkey: <<0xefc83f01c8fb309df2c8866b8c7924cc8b6f0580afdde1d6e16e2b6107c2862c::256>>,
         kind: 1,
-        created_at: now,
-        tags: [],
         content: "this is the content",
-        sig: nil
+        tags: []
       }
   """
   @spec create(integer(), String.t() | nil, <<_::256>>) :: Event.t()
@@ -70,7 +65,6 @@ defmodule NostrBasics.Event do
     %Event{
       kind: kind,
       pubkey: pubkey,
-      created_at: DateTime.utc_now(),
       content: content,
       tags: []
     }
