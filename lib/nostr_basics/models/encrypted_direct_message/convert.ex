@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.EncryptedDirectMessage.Convert do
+  @moduledoc """
+  Convert a encrypted direct message model to a nostr event
+  """
+
   alias NostrBasics.Keys.{PrivateKey, PublicKey}
   alias NostrBasics.Event
   alias NostrBasics.Crypto.AES256CBC

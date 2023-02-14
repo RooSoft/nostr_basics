@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.Delete.Convert do
+  @moduledoc """
+  Convert a delete model to a nostr event
+  """
+
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
 

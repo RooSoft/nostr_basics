@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.Reaction.Convert do
+  @moduledoc """
+  Convert a reaction model to a nostr event
+  """
+
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
 

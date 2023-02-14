@@ -1,4 +1,9 @@
 defmodule NostrBasics.Models.Note.Convert do
+  @moduledoc """
+  Convert a note model to a nostr event
+  """
+
+
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
 

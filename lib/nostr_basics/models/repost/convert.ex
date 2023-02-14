@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.Repost.Convert do
+  @moduledoc """
+  Convert a repost model to a nostr event
+  """
+
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
   alias NostrBasics.Models.Repost

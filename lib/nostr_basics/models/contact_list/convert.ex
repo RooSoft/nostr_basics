@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.ContactList.Convert do
+  @moduledoc """
+  Convert a contact list model to a nostr event
+  """
+
   alias NostrBasics.Event
   alias NostrBasics.Models.{Contact, ContactList}
 

@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.ContactList.Extract do
+  @moduledoc """
+  Convert a nostr event into a contact list
+  """
+
   @contact_kind 3
 
   alias NostrBasics.Models.{Contact, ContactList}

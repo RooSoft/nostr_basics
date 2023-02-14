@@ -1,4 +1,8 @@
 defmodule NostrBasics.Models.Profile.Convert do
+  @moduledoc """
+  Convert a profile model to a nostr event
+  """
+
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
 
