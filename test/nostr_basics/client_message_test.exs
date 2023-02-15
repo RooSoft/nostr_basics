@@ -129,4 +129,14 @@ defmodule NostrBasics.ClientMessageTest do
              ]
            } == result
   end
+
+  test "damus fifth request" do
+    req = ~s(["CLOSE","0E3A49CC-9AA4-4115-9BA0-EC56D97AC535"])
+
+    result = ClientMessage.parse(req)
+
+    assert {:close,
+            %NostrBasics.CloseRequest{subscription_id: "0E3A49CC-9AA4-4115-9BA0-EC56D97AC535"}} ==
+             result
+  end
 end
