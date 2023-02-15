@@ -66,7 +66,7 @@ defmodule NostrBasics.Filter.Parser do
 
   defp get_authors(request) do
     case Map.get(request, "authors") do
-      nil -> nil
+      nil -> []
       authors -> Enum.map(authors, &Binary.from_hex/1)
     end
   end

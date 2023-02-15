@@ -108,7 +108,7 @@ defmodule NostrBasics.ClientMessageTest do
                  subscription_id: "5948E1D7-6183-48D5-9023-C29AB1168142",
                  limit: 500,
                  ids: [],
-                 authors: nil,
+                 authors: [],
                  kinds: [4],
                  e: [],
                  p: []
