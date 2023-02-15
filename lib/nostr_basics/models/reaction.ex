@@ -29,7 +29,7 @@ defmodule NostrBasics.Models.Reaction do
         }
       }
   """
-  @spec to_event(Reaction.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Reaction.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(reaction, pubkey) do
     Reaction.Convert.to_event(reaction, pubkey)
   end

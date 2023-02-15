@@ -32,7 +32,7 @@ defmodule NostrBasics.Models.Reaction.Convert do
         }
       }
   """
-  @spec to_event(Reaction.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Reaction.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(
         %Reaction{event_id: event_id, event_pubkey: event_pubkey, content: content},
         reaction_pubkey
@@ -52,7 +52,7 @@ defmodule NostrBasics.Models.Reaction.Convert do
     end
   end
 
-  @spec create_tags(Event.Id.t(), PublicKey.t()) :: {:ok, list()} | {:error, String.t()}
+  @spec create_tags(Event.Id.t(), PublicKey.id()) :: {:ok, list()} | {:error, String.t()}
   defp create_tags(event_id, pubkey) do
     with {:ok, binary_pubkey} <- PublicKey.to_binary(pubkey),
          {:ok, binary_event_id} <- Event.Id.to_binary(event_id),

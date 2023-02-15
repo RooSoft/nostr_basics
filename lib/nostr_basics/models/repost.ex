@@ -45,7 +45,7 @@ defmodule NostrBasics.Models.Repost do
         }
       }
   """
-  @spec to_event(Repost.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Repost.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(repost, pubkey) do
     Repost.Convert.to_event(repost, pubkey)
   end

@@ -3,7 +3,6 @@ defmodule NostrBasics.Models.Note.Convert do
   Convert a note model to a nostr event
   """
 
-
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Event
 
@@ -29,7 +28,7 @@ defmodule NostrBasics.Models.Note.Convert do
         }
       }
   """
-  @spec to_event(Note.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Note.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(%Note{content: content}, note_pubkey) do
     {
       :ok,

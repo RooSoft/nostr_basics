@@ -36,7 +36,7 @@ defmodule NostrBasics.Models.EncryptedDirectMessage do
         ]
       }
   """
-  @spec to_event(EncryptedDirectMessage.t(), PrivateKey.t()) ::
+  @spec to_event(EncryptedDirectMessage.t(), PrivateKey.id()) ::
           {:ok, Event.t()} | {:error, String.t()}
   def to_event(encrypted_direct_message, private_key) do
     EncryptedDirectMessage.Convert.to_event(encrypted_direct_message, private_key)

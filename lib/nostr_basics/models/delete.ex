@@ -31,7 +31,7 @@ defmodule NostrBasics.Models.Delete do
         }
       }
   """
-  @spec to_event(Delete.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Delete.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(delete_event, pubkey) do
     Delete.Convert.to_event(delete_event, pubkey)
   end

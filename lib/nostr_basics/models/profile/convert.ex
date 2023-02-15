@@ -35,7 +35,7 @@ defmodule NostrBasics.Models.Profile.Convert do
         }
       }
   """
-  @spec to_event(Profile.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Profile.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(%Profile{} = profile, pubkey) do
     case Jason.encode(profile) do
       {:ok, json_profile} ->

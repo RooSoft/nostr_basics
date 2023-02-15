@@ -43,7 +43,7 @@ defmodule NostrBasics.Models.Repost.Convert do
         }
       }
   """
-  @spec to_event(Repost.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Repost.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(%Repost{event: event, relays: relays}, delete_pubkey) do
     with {:ok, tags} <- create_tags(event),
          {:ok, content} <- content_from_event(event, relays) do
