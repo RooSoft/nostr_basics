@@ -15,7 +15,7 @@ defimpl Inspect, for: NostrBasics.Filter do
     |> Inspect.Any.inspect(opts)
   end
 
-  defp inspect_identifier_list(nil), do: nil
+  defp inspect_identifier_list(nil), do: []
 
   defp inspect_identifier_list(raw_identifiers) do
     raw_identifiers

@@ -85,16 +85,48 @@ defmodule NostrBasics.ClientMessageTest do
              [
                %NostrBasics.Filter{
                  subscription_id: "85878F46-1063-4785-BBDB-2D2792694D02",
-                 since: nil,
-                 until: nil,
                  limit: 100,
                  ids: [],
-                 authors: nil,
                  kinds: [1, 42, 7, 6],
                  e: [],
                  p: []
                }
              ]
            } = result
+  end
+
+  test "damus fourth request" do
+    req =
+      ~s(["REQ","5948E1D7-6183-48D5-9023-C29AB1168142",{"kinds":[4],"limit":500,"#p":["5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2"]},{"kinds":[4],"authors":["5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2"]}])
+
+    result = ClientMessage.parse(req)
+
+    assert {
+             :req,
+             [
+               %NostrBasics.Filter{
+                 subscription_id: "5948E1D7-6183-48D5-9023-C29AB1168142",
+                 limit: 500,
+                 ids: [],
+                 authors: nil,
+                 kinds: [4],
+                 e: [],
+                 p: []
+               },
+               %NostrBasics.Filter{
+                 subscription_id: "5948E1D7-6183-48D5-9023-C29AB1168142",
+                 since: nil,
+                 until: nil,
+                 limit: nil,
+                 ids: [],
+                 authors: [
+                   <<0x5AB9F2EFB1FDA6BC32696F6F3FD715E156346175B93B6382099D23627693C3F2::256>>
+                 ],
+                 kinds: [4],
+                 e: [],
+                 p: []
+               }
+             ]
+           } == result
   end
 end
