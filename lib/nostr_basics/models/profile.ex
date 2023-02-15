@@ -5,7 +5,9 @@ defmodule NostrBasics.Models.Profile do
 
   defstruct [:about, :banner, :display_name, :lud16, :name, :nip05, :picture, :website]
 
+  alias NostrBasics.Event
   alias NostrBasics.Models.Profile
+  alias NostrBasics.Keys.PublicKey
 
   @type t :: %Profile{}
 
@@ -48,7 +50,7 @@ defmodule NostrBasics.Models.Profile do
         }
       }
   """
-  @spec to_event(Profile.t(), PublicKey.t()) :: {:ok, Event.t()} | {:error, String.t()}
+  @spec to_event(Profile.t(), PublicKey.id()) :: {:ok, Event.t()} | {:error, String.t()}
   def to_event(profile, pubkey) do
     Profile.Convert.to_event(profile, pubkey)
   end

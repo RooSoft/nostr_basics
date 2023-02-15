@@ -8,6 +8,7 @@ defmodule NostrBasics.Models.ContactList do
 
   defstruct [:pubkey, :contacts, :relays]
 
+  alias NostrBasics.Event
   alias NostrBasics.Models.{Contact, ContactList}
 
   @type t :: %ContactList{}

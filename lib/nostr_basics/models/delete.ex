@@ -5,6 +5,7 @@ defmodule NostrBasics.Models.Delete do
 
   defstruct [:note, event_ids: []]
 
+  alias NostrBasics.Event
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Models.Delete
 

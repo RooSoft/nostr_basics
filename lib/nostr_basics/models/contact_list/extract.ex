@@ -5,6 +5,7 @@ defmodule NostrBasics.Models.ContactList.Extract do
 
   @contact_kind 3
 
+  alias NostrBasics.Event
   alias NostrBasics.Models.{Contact, ContactList}
 
   @doc """

@@ -5,10 +5,12 @@ defmodule NostrBasics.Models.Note do
 
   defstruct [:content]
 
+  alias NostrBasics.Event
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Models.Note
 
   @type t :: %Note{}
+  @type id :: String.t() | <<_::256>>
 
   @doc """
   Creates a new nostr note

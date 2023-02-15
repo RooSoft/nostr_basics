@@ -51,7 +51,7 @@ defmodule NostrBasics.Models.Delete.Convert do
     end
   end
 
-  @spec create_tags(Event.Id.t()) :: {:ok, list()} | {:error, String.t()}
+  @spec create_tags(Event.id()) :: {:ok, list()} | {:error, String.t()}
   defp create_tags(event_ids) do
     case to_hex(event_ids) do
       {:ok, hex_ids} -> {:ok, Enum.map(hex_ids, &["e", &1])}

@@ -12,6 +12,7 @@ defmodule NostrBasics.Event do
   alias NostrBasics.Crypto
 
   @type t :: %Event{}
+  @type id :: String.t() | <<_::256>> | <<_::512>>
 
   # This thing is needed so that the Jason library knows how to serialize the events
   defimpl Jason.Encoder do

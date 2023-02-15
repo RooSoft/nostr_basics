@@ -52,7 +52,7 @@ defmodule NostrBasics.Models.Reaction.Convert do
     end
   end
 
-  @spec create_tags(Event.Id.t(), PublicKey.id()) :: {:ok, list()} | {:error, String.t()}
+  @spec create_tags(Event.id(), PublicKey.id()) :: {:ok, list()} | {:error, String.t()}
   defp create_tags(event_id, pubkey) do
     with {:ok, binary_pubkey} <- PublicKey.to_binary(pubkey),
          {:ok, binary_event_id} <- Event.Id.to_binary(event_id),

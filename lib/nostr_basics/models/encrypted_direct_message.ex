@@ -5,6 +5,7 @@ defmodule NostrBasics.Models.EncryptedDirectMessage do
 
   defstruct [:content, :remote_pubkey]
 
+  alias NostrBasics.Event
   alias NostrBasics.Keys.{PrivateKey}
   alias NostrBasics.Models.EncryptedDirectMessage
 

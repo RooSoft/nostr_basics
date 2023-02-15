@@ -5,6 +5,7 @@ defmodule NostrBasics.Models.Reaction do
 
   defstruct [:event_id, :event_pubkey, content: "+"]
 
+  alias NostrBasics.Event
   alias NostrBasics.Keys.PublicKey
   alias NostrBasics.Models.Reaction
 
