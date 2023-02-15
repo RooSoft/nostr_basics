@@ -73,4 +73,28 @@ defmodule NostrBasics.ClientMessageTest do
              ]
            } == result
   end
+
+  test "damus third request" do
+    req =
+      ~s(["REQ","85878F46-1063-4785-BBDB-2D2792694D02",{"kinds":[1,42,7,6],"limit":100,"#p":["5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2"]}])
+
+    result = ClientMessage.parse(req)
+
+    assert {
+             :req,
+             [
+               %NostrBasics.Filter{
+                 subscription_id: "85878F46-1063-4785-BBDB-2D2792694D02",
+                 since: nil,
+                 until: nil,
+                 limit: 100,
+                 ids: [],
+                 authors: nil,
+                 kinds: [1, 42, 7, 6],
+                 e: [],
+                 p: []
+               }
+             ]
+           } = result
+  end
 end
