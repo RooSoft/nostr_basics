@@ -87,6 +87,27 @@ defmodule NostrBasics.Filter do
   end
 
   @doc """
+  Converts a NIP-01 JSON REQ string into a structured Filter
+
+  ## Examples
+      iex> ~s({"authors":["5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2"],"kinds":[1],"limit":10})
+      ...> |> NostrBasics.Filter.from_req!("a_subscription_id")
+      %NostrBasics.Filter{
+        subscription_id: "a_subscription_id",
+        kinds: [1],
+        authors: [<<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>],
+        limit: 10
+      }
+  """
+  @spec from_req!(String.t(), String.t()) :: Filter.t()
+  def from_req!(req, subscription_id) do
+    case from_req(req, subscription_id) do
+      {:ok, filter} -> filter
+      {:error, message} -> raise message
+    end
+  end
+
+  @doc """
   Converts a JSON decoded encoded filter into a %Filter{}
 
   ## Examples
