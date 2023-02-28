@@ -95,6 +95,29 @@ defmodule NostrBasics.Event do
   end
 
   @doc """
+  Converts a NIP-01 JSON string into a %Event{}
+
+  ## Examples
+      iex> ~s({"id":"0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34","pubkey":"5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2","created_at":1675794272,"kind":1,"tags":[],"content":"this is the content"})
+      ...> |> NostrBasics.Event.parse!()
+      %NostrBasics.Event{
+        id: "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34",
+        pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
+        created_at: ~U[2023-02-07 18:24:32Z],
+        kind: 1,
+        tags: [],
+        content: "this is the content"
+      }
+  """
+  @spec parse!(String.t()) :: Event.t()
+  def parse!(body) do
+    case parse(body) do
+      {:ok, event} -> event
+      {:error, message} -> raise message
+    end
+  end
+
+  @doc """
   Converts a NIP-01 JSON string decoded as a map by Jason into an %Event{}
 
   ## Examples
