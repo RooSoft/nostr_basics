@@ -66,7 +66,7 @@ defmodule NostrBasics.ClientMessageTest do
                  authors: [
                    <<0x5AB9F2EFB1FDA6BC32696F6F3FD715E156346175B93B6382099D23627693C3F2::256>>
                  ],
-                 kinds: [30000],
+                 kinds: [30_000],
                  e: [],
                  p: []
                }
