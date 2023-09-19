@@ -34,4 +34,18 @@ defmodule NostrBasics.Models.Note do
   def to_event(note, pubkey) do
     Note.Convert.to_event(note, pubkey)
   end
+
+  @doc """
+  Creates a bech32 id for a note
+
+  ## Examples
+      iex> NostrBasics.Models.Note.id_to_bech32("260056ba2ac10204aa36d5563ead985be52c4f039ade8ef66c36a29e9f1450e4")
+      "note1ycq9dw32cypqf23k64tratvct0jjcncrnt0gaanvx63fa8c52rjqw0pj56"
+
+      iex> NostrBasics.Models.Note.id_to_bech32(<<0x260056ba2ac10204aa36d5563ead985be52c4f039ade8ef66c36a29e9f1450e4::256>>)
+      "note1ycq9dw32cypqf23k64tratvct0jjcncrnt0gaanvx63fa8c52rjqw0pj56"
+  """
+  @spec id_to_bech32(binary()) :: binary()
+  def id_to_bech32(<<_::256>> = id), do: Bech32.encode("note", id)
+  def id_to_bech32(id), do: Bech32.encode("note", Binary.from_hex(id))
 end

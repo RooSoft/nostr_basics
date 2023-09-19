@@ -194,6 +194,39 @@ defmodule NostrBasics.Event do
   end
 
   @doc """
+  Encodes an event key into the nevent format
+
+  ## Examples
+      iex> %NostrBasics.Event{
+      ...>   pubkey: <<0x5ab9f2efb1fda6bc32696f6f3fd715e156346175b93b6382099d23627693c3f2::256>>,
+      ...>   created_at: ~U[2023-02-07 18:24:32Z],
+      ...>   kind: 1,
+      ...>   tags: [],
+      ...>   content: "this is the content"
+      ...> }
+      ...> |> NostrBasics.Event.to_nevent
+      "nevent1xpnrqvfhve3nywfevcmrxdf3v4nx2wtyx43xvcnxvgenvcesvvmkzvfn8yunvv3hvcukyetrxqexxdpevgcrqepsv43njwrpx4nrxdqq5qzcf"
+
+      iex> %NostrBasics.Event{
+      ...>   id: "0f017fc299f6351efe9d5bfbfb36c0c7a1399627f9bec02c49b00d0ec98a5f34"
+      ...> }
+      ...> |> NostrBasics.Event.to_nevent
+      "nevent1xpnrqvfhve3nywfevcmrxdf3v4nx2wtyx43xvcnxvgenvcesvvmkzvfn8yunvv3hvcukyetrxqexxdpevgcrqepsv43njwrpx4nrxdqq5qzcf"
+  """
+  @spec to_nevent(Event.t()) :: binary()
+  def to_nevent(%Event{id: nil} = event) do
+    id =
+      event
+      |> create_id()
+
+    Bech32.encode("nevent", id)
+  end
+
+  def to_nevent(%Event{id: id}) do
+    Bech32.encode("nevent", id)
+  end
+
+  @doc """
   A structure an event has to be converted to prior to being SHA256'd, mainly for ID creation
 
   ## Examples
