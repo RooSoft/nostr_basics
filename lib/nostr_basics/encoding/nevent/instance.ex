@@ -8,7 +8,7 @@ defmodule NostrBasics.Encoding.Nevent.Instance do
 
   def from_tokens(tokens) do
     nevent =
-      Enum.reduce(tokens, %Nevent{}, fn {type, data, _}, nevent ->
+      Enum.reduce(tokens, %Nevent{}, fn {type, data}, nevent ->
         add_token(nevent, type, data)
       end)
 
