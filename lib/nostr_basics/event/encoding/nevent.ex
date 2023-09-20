@@ -24,6 +24,10 @@ defmodule NostrBasics.Encoding.Nevent do
           relays: ["wss://relay.damus.io"]
         }
       }
+
+      iex> "nevent1asdf"
+      ...> |> NostrBasics.Encoding.Nevent.decode()
+      {:error, :malformed}
   """
 
   @spec decode(binary()) :: {:ok, Nevent.t()} | {:error, atom()}
@@ -32,6 +36,7 @@ defmodule NostrBasics.Encoding.Nevent do
          {:ok, nevent} <- to_struct(tokens) do
       {:ok, nevent}
     else
+      {:error, :too_long} -> {:error, :malformed}
       {:error, message} -> {:error, message}
     end
   end
@@ -40,6 +45,9 @@ defmodule NostrBasics.Encoding.Nevent do
     case Bech32.decode(encoded) do
       {:ok, @nevent, data} ->
         extract_tokens([], data)
+
+      {:error, message} ->
+        {:error, message}
     end
   end
 
