@@ -2,15 +2,11 @@ defmodule NostrBasics.Encoding.Nevent do
   defstruct [:id, :kind, :author, relays: []]
 
   alias NostrBasics.Encoding.Nevent
-  alias NostrBasics.Encoding.Nevent.Tokens
+  alias NostrBasics.Encoding.Nevent.{Properties, Tokens}
 
   @type t :: %Nevent{}
 
   @nevent "nevent"
-  @special 0
-  @relay 1
-  @author 2
-  @kind 3
 
   @doc """
   ## Examples
@@ -45,26 +41,9 @@ defmodule NostrBasics.Encoding.Nevent do
   defp to_struct(tokens) do
     nevent =
       Enum.reduce(tokens, %Nevent{}, fn {type, data, _}, nevent ->
-        nevent
-        |> add_property(type, data)
+        Properties.add(nevent, type, data)
       end)
 
     {:ok, nevent}
-  end
-
-  defp add_property(%Nevent{} = nevent, @special, <<id::binary-32>>) do
-    %{nevent | id: id}
-  end
-
-  defp add_property(%Nevent{} = nevent, @relay, url) do
-    %{nevent | relays: [url | nevent.relays]}
-  end
-
-  defp add_property(%Nevent{} = nevent, @author, id) do
-    %{nevent | author: id}
-  end
-
-  defp add_property(%Nevent{} = nevent, @kind, <<kind::32>>) do
-    %{nevent | kind: kind}
   end
 end
