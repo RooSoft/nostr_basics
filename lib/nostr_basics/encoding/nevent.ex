@@ -2,7 +2,7 @@ defmodule NostrBasics.Encoding.Nevent do
   defstruct [:id, :kind, :author, relays: []]
 
   alias NostrBasics.Encoding.Nevent
-  alias NostrBasics.Encoding.Nevent.{Properties, Tokens}
+  alias NostrBasics.Encoding.Nevent.{Instance, Tokens}
 
   @type t :: %Nevent{}
 
@@ -30,20 +30,11 @@ defmodule NostrBasics.Encoding.Nevent do
   @spec decode(binary()) :: {:ok, Nevent.t()} | {:error, atom()}
   def decode(@nevent <> _ = encoded) do
     with {:ok, tokens} <- Tokens.extract(encoded),
-         {:ok, nevent} <- to_struct(tokens) do
+         {:ok, nevent} <- Instance.from_tokens(tokens) do
       {:ok, nevent}
     else
       {:error, :too_long} -> {:error, :malformed}
       {:error, message} -> {:error, message}
     end
-  end
-
-  defp to_struct(tokens) do
-    nevent =
-      Enum.reduce(tokens, %Nevent{}, fn {type, data, _}, nevent ->
-        Properties.add(nevent, type, data)
-      end)
-
-    {:ok, nevent}
   end
 end
