@@ -2,6 +2,7 @@ defmodule NostrBasics.Encoding.Nevent do
   defstruct [:id, :kind, :author, relays: []]
 
   alias NostrBasics.Encoding.Nevent
+  alias NostrBasics.Encoding.Nevent.Tokens
 
   @type t :: %Nevent{}
 
@@ -32,7 +33,7 @@ defmodule NostrBasics.Encoding.Nevent do
 
   @spec decode(binary()) :: {:ok, Nevent.t()} | {:error, atom()}
   def decode(@nevent <> _ = encoded) do
-    with {:ok, tokens} <- tokenize(encoded),
+    with {:ok, tokens} <- Tokens.extract(encoded),
          {:ok, nevent} <- to_struct(tokens) do
       {:ok, nevent}
     else
@@ -40,26 +41,6 @@ defmodule NostrBasics.Encoding.Nevent do
       {:error, message} -> {:error, message}
     end
   end
-
-  defp tokenize(encoded) do
-    case Bech32.decode(encoded) do
-      {:ok, @nevent, data} ->
-        extract_tokens([], data)
-
-      {:error, message} ->
-        {:error, message}
-    end
-  end
-
-  defp extract_tokens(tokens, <<>>), do: {:ok, Enum.reverse(tokens)}
-
-  defp extract_tokens(tokens, <<type::8, length::8, rest::binary>>) do
-    <<data::binary-size(length), rest::binary>> = rest
-
-    extract_tokens([{type, data, rest} | tokens], rest)
-  end
-
-  defp extract_tokens(_, _), do: {:error, :malformed}
 
   defp to_struct(tokens) do
     nevent =
