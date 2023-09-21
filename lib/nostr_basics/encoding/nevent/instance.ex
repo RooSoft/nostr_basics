@@ -31,6 +31,7 @@ defmodule NostrBasics.Encoding.Nevent.Instance do
         }
       }
   """
+  @spec from_tokens(list()) :: {:ok, Nevent.t()}
   def from_tokens(tokens) do
     nevent =
       Enum.reduce(tokens, %Nevent{}, fn {type, data}, nevent ->

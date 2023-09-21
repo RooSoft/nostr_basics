@@ -33,7 +33,7 @@ defmodule NostrBasics.Encoding.Nevent.Tokens do
         ]
       }
   """
-  @spec extract(binary()) :: {:ok, binary(), binary()} | {:error, atom()}
+  @spec extract(binary()) :: {:ok, list()} | {:error, atom()}
   def extract(encoded) do
     case Bech32.decode(encoded) do
       {:ok, @nevent, data} ->
