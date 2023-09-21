@@ -59,7 +59,7 @@ defmodule NostrBasics.MixProject do
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:jason, "~> 1.4"},
-      {:k256, "~> 0.0.7"},
+      {:k256, "~> 0.0.8"},
       {:binary, "~> 0.0.5"},
       {:bech32, "~> 1.0"}
     ]
