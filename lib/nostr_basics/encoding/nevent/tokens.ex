@@ -55,6 +55,7 @@ defmodule NostrBasics.Encoding.Nevent.Tokens do
       ...> |> NostrBasics.Encoding.Nevent.Tokens.to_bech32
       "nevent1qqs0mn6wju0teknamedkkgfsfyk0n8743slca8x929yc7p5z42n5gvqpz3mhxue69uhhyetvv9ujuerpd46hxtnfdupzphchxfm3ste32hfhkvczzxapme9gz5qvqtget6tylyd7wa8vjecgqvzqqqqqqysdssmq"
   """
+  @spec to_bech32(list()) :: binary()
   def to_bech32(tokens) do
     data =
       tokens
