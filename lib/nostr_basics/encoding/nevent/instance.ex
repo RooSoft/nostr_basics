@@ -6,6 +6,28 @@ defmodule NostrBasics.Encoding.Nevent.Instance do
   @author 2
   @kind 3
 
+  @doc """
+  Converts a set of tokens into a %Nevent{}
+
+  ## Examples
+      iex> [
+      ...>   {0, <<0xfdcf4e971ebcda7dde5b6b2130492cf99fd58c3f8e9cc551498f0682aaa74430::256>>},
+      ...>   {1, "wss://relay.damus.io"},
+      ...>   {2, <<0xdf173277182f3155d37b330211ba1de4a81500c02d195e964f91be774ec96708::256>>},
+      ...>   {3, <<1::32>>}
+      ...> ]
+      ...> |> NostrBasics.Encoding.Nevent.Instance.from_tokens()
+      {
+        :ok,
+        %NostrBasics.Encoding.Nevent{
+          author: <<0xdf173277182f3155d37b330211ba1de4a81500c02d195e964f91be774ec96708::256>>,
+          id: <<0xfdcf4e971ebcda7dde5b6b2130492cf99fd58c3f8e9cc551498f0682aaa74430::256>>,
+          kind: 1,
+          relays: ["wss://relay.damus.io"]
+        }
+      }
+
+  """
   def from_tokens(tokens) do
     nevent =
       Enum.reduce(tokens, %Nevent{}, fn {type, data}, nevent ->
@@ -33,7 +55,7 @@ defmodule NostrBasics.Encoding.Nevent.Instance do
         {3, <<1::32>>}
       ]
   """
-
+  @spec to_tokens(Nevent.t()) :: list()
   def to_tokens(%Nevent{id: id, kind: kind, author: author, relays: relays}) do
     relay_tokens =
       relays
