@@ -1,4 +1,8 @@
 defmodule NostrBasics.Encoding.Nevent do
+  @moduledoc """
+  Bech32 event identifier management
+  """
+
   defstruct [:id, :kind, :author, relays: []]
 
   alias NostrBasics.Encoding.Nevent

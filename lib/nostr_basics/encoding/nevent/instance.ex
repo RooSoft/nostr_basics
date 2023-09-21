@@ -1,4 +1,8 @@
 defmodule NostrBasics.Encoding.Nevent.Instance do
+  @moduledoc """
+  Converts %Nevent{} instances into tokens and back, intermediary step for bech32 identifiers
+  """
+
   alias NostrBasics.Encoding.Nevent
 
   @special 0
@@ -26,7 +30,6 @@ defmodule NostrBasics.Encoding.Nevent.Instance do
           relays: ["wss://relay.damus.io"]
         }
       }
-
   """
   def from_tokens(tokens) do
     nevent =
